@@ -25,10 +25,19 @@ module.exports = async (req, res) => {
     const email = safeTrim(body.email);
     const phone = safeTrim(body.phone);
 
-    // Option B: Only send email to you when they provide email or phone
-    if (!email && !phone) {
-      return res.status(400).json({ ok: false, error: "Missing contact info (email or phone)" });
-    }
+  // Send ONLY after: description + business type + (email OR phone)
+const description = safeTrim(body.description);
+const businessType = safeTrim(body.businessType);
+
+if (!description) {
+  return res.status(400).json({ ok: false, error: "Missing description" });
+}
+if (!businessType) {
+  return res.status(400).json({ ok: false, error: "Missing business type" });
+}
+if (!email && !phone) {
+  return res.status(400).json({ ok: false, error: "Missing contact info (email or phone)" });
+}
 
     const subject = `New CrownForge Lead — ${safeTrim(body.businessType) || "Website Inquiry"}${
       safeTrim(body.location) ? ` (${safeTrim(body.location)})` : ""
@@ -46,10 +55,11 @@ module.exports = async (req, res) => {
     const maintenanceText =
       body.maintenance === true ? "Yes" : body.maintenance === false ? "No" : "Not specified";
 
-    const text = [
+      const text = [
       `Name: ${safeTrim(body.name) || "Not provided"}`,
       `Email: ${email || "Not provided"}`,
       `Phone: ${phone || "Not provided"}`,
+      `Description: ${safeTrim(body.description) || "Not provided"}`,
       `Location: ${safeTrim(body.location) || "Not provided"}`,
       `Business Type: ${safeTrim(body.businessType) || "Not provided"}`,
       `Pages Requested: ${pages || "Not provided"}`,
