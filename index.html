@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CrownForge Digital</title>
+  <meta name="description" content="CrownForge Digital builds fast, premium websites and maintenance plans for small businesses in Hampton, SC and surrounding communities." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <header class="header">
+    <div class="brand">
+      <img src="logo.png" class="logo" alt="CrownForge Digital logo" />
+      <div>
+        <div class="brand-title">CrownForge Digital</div>
+        <div class="brand-subtitle">Websites • Branding • Maintenance</div>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <a href="#packages">Packages</a>
+      <a href="#work">Work</a>
+      <a href="#contact">Contact</a>
+      <button class="cta" id="openChatTop">Chat & Get a Quote</button>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero-left">
+        <h1>Premium websites for small businesses — built fast.</h1>
+        <p>
+          We design modern, mobile-first sites that convert. Based in Hampton, SC — serving Hampton County,
+          Allendale County, and the Lowcountry.
+        </p>
+
+        <div class="hero-actions">
+          <button class="cta" id="openChatHero">Chat With Our Concierge</button>
+          <a class="ghost" href="#packages">View Bundles</a>
+        </div>
+
+        <div class="trust">
+          <span>⚡ Fast turnaround</span>
+          <span>🔒 Secure + reliable</span>
+          <span>📈 Built to convert</span>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="card">
+          <div class="card-title">What we need from you (example)</div>
+          <div class="card-body">
+            <p class="example">
+              “Lawn care business in Hampton, SC. I need a 2–3 page site (Home/Services/Contact) with a quote form and gallery.
+              Want the $30/mo maintenance plan. Timeline: 2 weeks.”
+            </p>
+            <p class="muted">Our bot can collect this for you and send it straight to our inbox.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="packages" class="section">
+      <h2>Bundles</h2>
+      <div class="grid">
+        <div class="pricing">
+          <h3>Starter Presence</h3>
+          <div class="price">1–3 Pages</div>
+          <ul>
+            <li>Home / Services / Contact</li>
+            <li>Mobile-first design</li>
+            <li>Contact form + map</li>
+            <li>Basic SEO setup</li>
+          </ul>
+          <div class="tag">Best for: new & local businesses</div>
+        </div>
+
+        <div class="pricing featured">
+          <h3>Growth Package</h3>
+          <div class="price">5–7 Pages</div>
+          <ul>
+            <li>Service pages that rank</li>
+            <li>Gallery / portfolio</li>
+            <li>Quote form or booking</li>
+            <li>Speed + conversion tuning</li>
+          </ul>
+          <div class="tag">Best for: established businesses</div>
+        </div>
+
+        <div class="pricing">
+          <h3>CrownCare Maintenance</h3>
+          <div class="price">$25–$35 / mo</div>
+          <ul>
+            <li>Text/photo updates</li>
+            <li>Performance checks</li>
+            <li>Minor layout tweaks</li>
+            <li>Monthly backup</li>
+          </ul>
+          <div class="tag">Predictable, hands-off website care</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="work" class="section">
+      <h2>Recent work</h2>
+      <p class="muted">Add your screenshots/links here (portfolio builds trust fast).</p>
+      <div class="work-grid">
+        <div class="work-card">Project Placeholder</div>
+        <div class="work-card">Project Placeholder</div>
+        <div class="work-card">Project Placeholder</div>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <h2>Contact</h2>
+      <div class="contact-card">
+        <div>
+          <div class="muted">Email</div>
+          <div class="contact-value">contactcrownforgedigital@gmail.com</div>
+        </div>
+        <button class="cta" id="openChatBottom">Chat Now</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">CrownForge Digital</div>
+        <div class="footer-local">
+          Serving Hampton, SC and surrounding communities — Varnville, Estill, Yemassee, Allendale, Brunson, Fairfax, Ridgeland, and the Lowcountry.
+        </div>
+      </div>
+      <div class="footer-links">
+        <a href="#packages">Bundles</a>
+        <a href="#work">Work</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Chat Widget -->
+  <div class="chat-launch" id="chatLaunch">Chat</div>
+
+  <div class="chat" id="chat" aria-hidden="true">
+    <div class="chat-header">
+      <div>
+        <div class="chat-title">CrownForge Concierge</div>
+        <div class="chat-sub">Tell us what you need — we’ll email a summary instantly.</div>
+      </div>
+      <button class="chat-close" id="chatClose" aria-label="Close">✕</button>
+    </div>
+
+    <div class="chat-actions">
+      <button class="chip" data-intent="pricing">Pricing</button>
+      <button class="chip" data-intent="timeline">Timeline</button>
+      <button class="chip" data-intent="booking">Booking</button>
+      <button class="chip" data-intent="quote">Get a quote</button>
+    </div>
+
+    <div class="chat-messages" id="chatMessages"></div>
+
+    <div class="chat-input">
+      <input id="chatText" type="text" placeholder="Type here…" autocomplete="off" />
+      <button id="chatSend">Send</button>
+    </div>
+  </div>
+
+  <script>
+    // -----------------------------
+    // Helpers
+    // -----------------------------
+    const el = (id) => document.getElementById(id);
+
+    function addMessage(role, text) {
+      const wrap = document.createElement("div");
+      wrap.className = "msg " + (role === "user" ? "user" : "bot");
+      wrap.textContent = text;
+      el("chatMessages").appendChild(wrap);
+      el("chatMessages").scrollTop = el("chatMessages").scrollHeight;
+      state.transcript.push({ role, content: text });
+    }
+
+    function openChat() {
+      el("chat").setAttribute("aria-hidden", "false");
+      el("chat").classList.add("open");
+      el("chatText").focus();
+    }
+
+    function closeChat() {
+      el("chat").classList.remove("open");
+      el("chat").setAttribute("aria-hidden", "true");
+    }
+
+    function looksLikeEmail(t) {
+      return /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i.test(t);
+    }
+
+    function looksLikePhone(t) {
+      // flexible US-ish phone detection
+      const digits = (t || "").replace(/\D/g, "");
+      return digits.length >= 10 && digits.length <= 15;
+    }
+
+    function extractEmail(t) {
+      const m = (t || "").match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i);
+      return m ? m[0] : "";
+    }
+
+    function extractPhone(t) {
+      const digits = (t || "").replace(/\D/g, "");
+      return digits.length >= 10 ? digits : "";
+    }
+
+    function normalizeList(t) {
+      return (t || "")
+        .split(/,|\n|;|\|/g)
+        .map(s => s.trim())
+        .filter(Boolean);
+    }
+
+    // -----------------------------
+    // Lead state (Option B)
+    // -----------------------------
+    const state = {
+      step: 0,
+      name: "",
+      email: "",
+      phone: "",
+      location: "Hampton, SC",
+      businessType: "",
+      pages: [],
+      features: [],
+      timeline: "",
+      budget: "",
+      maintenance: null,
+      notes: "",
+      leadSent: false,
+      transcript: []
+    };
+
+    // prevent duplicate emails across refresh for the same visitor (optional)
+    const sentKey = "cfd_lead_sent_v1";
+    if (localStorage.getItem(sentKey) === "1") state.leadSent = true;
+
+    async function sendLeadIfReady() {
+      if (state.leadSent) return;
+
+      if (!state.email && !state.phone) return; // Option B trigger requires contact info
+
+      // minimal payload
+      const payload = {
+        name: state.name,
+        email: state.email,
+        phone: state.phone,
+        location: state.location,
+        businessType: state.businessType,
+        pages: state.pages,
+        features: state.features,
+        timeline: state.timeline,
+        budget: state.budget,
+        maintenance: state.maintenance,
+        notes: state.notes,
+        transcript: state.transcript
+      };
+
+      try {
+        const r = await fetch("/api/leads", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await r.json();
+
+        if (data.ok) {
+          state.leadSent = true;
+          localStorage.setItem(sentKey, "1");
+          addMessage("assistant", "Perfect — I’ve got your details. We’ll reach out shortly.");
+        } else {
+          addMessage("assistant", "I had trouble submitting that. If you want, you can also email us directly at contactcrownforgedigital@gmail.com.");
+        }
+      } catch (e) {
+        addMessage("assistant", "I had trouble submitting that. If you want, you can also email us directly at contactcrownforgedigital@gmail.com.");
+      }
+    }
+
+    function nextQuestion() {
+      // Step-by-step intake
+      if (!state.businessType) {
+        addMessage("assistant", "What type of business is this? (Example: HVAC, lawn care, barber, restaurant)");
+        return;
+      }
+      if (state.pages.length === 0) {
+        addMessage("assistant", "What pages do you want? (Example: Home, Services, Contact, About, Gallery)");
+        return;
+      }
+      if (state.features.length === 0) {
+        addMessage("assistant", "Any features needed? (Quote form, booking, payments, gallery, reviews, etc.)");
+        return;
+      }
+      if (!state.timeline) {
+        addMessage("assistant", "What timeline are you aiming for? (ASAP, 1–2 weeks, 30 days)");
+        return;
+      }
+      if (state.maintenance === null) {
+        addMessage("assistant", "Do you want a maintenance plan ($25–$35/mo) for updates & care? (Yes/No)");
+        return;
+      }
+      if (!state.email && !state.phone) {
+        addMessage("assistant", "What’s the best way to reach you — email or phone?");
+        return;
+      }
+
+      // If they reached here, contact exists; send lead.
+      sendLeadIfReady();
+    }
+
+    function handleUserText(text) {
+      const t = (text || "").trim();
+      if (!t) return;
+
+      addMessage("user", t);
+
+      // Capture email/phone if present anywhere
+      if (!state.email && looksLikeEmail(t)) state.email = extractEmail(t);
+      if (!state.phone && looksLikePhone(t)) state.phone = extractPhone(t);
+
+      // Yes/No maintenance
+      if (state.maintenance === null) {
+        if (/^(yes|y|yeah|yep|sure|of course)$/i.test(t)) state.maintenance = true;
+        if (/^(no|n|nope)$/i.test(t)) state.maintenance = false;
+      }
+
+      // Basic field collection by missing fields
+      if (!state.businessType && t.length <= 60) {
+        // If they answer short like "lawn care" / "restaurant"
+        state.businessType = t;
+        addMessage("assistant", `Got it — ${state.businessType}.`);
+        return nextQuestion();
+      }
+
+      if (state.pages.length === 0 && /(home|services|contact|about|gallery|portfolio|menu|pricing|reviews)/i.test(t)) {
+        state.pages = normalizeList(t);
+        addMessage("assistant", `Great. Pages noted: ${state.pages.join(", ")}.`);
+        return nextQuestion();
+      }
+
+      if (state.features.length === 0 && /(quote|booking|appointment|calendar|payment|stripe|square|gallery|reviews|forms?)/i.test(t)) {
+        state.features = normalizeList(t);
+        addMessage("assistant", `Perfect. Features noted: ${state.features.join(", ")}.`);
+        return nextQuestion();
+      }
+
+      if (!state.timeline && /(asap|week|weeks|month|days)/i.test(t)) {
+        state.timeline = t;
+        addMessage("assistant", `Timeline noted: ${state.timeline}.`);
+        return nextQuestion();
+      }
+
+      // If they typed something else, store as notes
+      state.notes = (state.notes ? state.notes + " " : "") + t;
+
+      // If we got contact info in this message, attempt send (Option B)
+      if ((state.email || state.phone) && !state.leadSent) {
+        // Ask remaining questions quickly, but we can still send now if enough exists
+        if (!state.businessType || state.pages.length === 0 || state.features.length === 0 || !state.timeline || state.maintenance === null) {
+          addMessage("assistant", "Got it. One more thing so we can quote accurately.");
+          return nextQuestion();
+        }
+        return sendLeadIfReady();
+      }
+
+      // Continue intake
+      nextQuestion();
+    }
+
+    function handleIntent(intent) {
+      switch (intent) {
+        case "pricing":
+          addMessage("assistant", "Bundles: Starter (1–3 pages), Growth (5–7 pages), plus CrownCare maintenance ($25–$35/mo). Want Starter or Growth?");
+          break;
+        case "timeline":
+          addMessage("assistant", "Typical timelines: Starter 3–7 days, Growth 7–14 days depending on content. What timeline do you need?");
+          break;
+        case "booking":
+          addMessage("assistant", "We can add booking/appointments (Calendly or custom). What business type is this and do you need payments too?");
+          break;
+        case "quote":
+          addMessage("assistant", "To quote you fast, tell me: business type, pages, features, timeline, and the best contact (email/phone).");
+          break;
+        default:
+          addMessage("assistant", "Tell me what you need and I’ll guide you.");
+      }
+    }
+
+    // -----------------------------
+    // Wire UI
+    // -----------------------------
+    el("chatLaunch").addEventListener("click", () => {
+      openChat();
+      if (state.transcript.length === 0) {
+        addMessage("assistant", "Hey! I’m the CrownForge Concierge. I’ll collect a few details and email you a summary.");
+        nextQuestion();
+      }
+    });
+
+    el("openChatTop").addEventListener("click", () => { el("chatLaunch").click(); });
+    el("openChatHero").addEventListener("click", () => { el("chatLaunch").click(); });
+    el("openChatBottom").addEventListener("click", () => { el("chatLaunch").click(); });
+
+    el("chatClose").addEventListener("click", closeChat);
+
+    el("chatSend").addEventListener("click", () => {
+      const v = el("chatText").value;
+      el("chatText").value = "";
+      handleUserText(v);
+    });
+
+    el("chatText").addEventListener("keydown", (e) => {
+      if (e.key === "Enter") el("chatSend").click();
+    });
+
+    document.querySelectorAll(".chip").forEach((btn) => {
+      btn.addEventListener("click", () => handleIntent(btn.dataset.intent));
+    });
+  </script>
+</body>
+</html>
