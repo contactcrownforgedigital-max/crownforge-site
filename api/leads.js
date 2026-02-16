@@ -35,8 +35,8 @@ if (!description) {
 if (!businessType) {
   return res.status(400).json({ ok: false, error: "Missing business type" });
 }
-if (!email && !phone) {
-  return res.status(400).json({ ok: false, error: "Missing contact info (email or phone)" });
+if (!email) {
+  return res.status(400).json({ ok: false, error: "Missing email" });
 }
 
     const subject = `New CrownForge Lead — ${safeTrim(body.businessType) || "Website Inquiry"}${
