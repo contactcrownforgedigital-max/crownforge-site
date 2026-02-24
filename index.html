@@ -280,7 +280,8 @@
   };
 
   const sentKey = "cfd_lead_sent_v1";
-  if (localStorage.getItem(sentKey) === "1") state.leadSent = true;
+  // Use sessionStorage so the flag resets when the visitor closes the tab/browser (better UX + easier testing)
+  if (sessionStorage.getItem(sentKey) === "1") state.leadSent = true;
 
   async function sendLeadIfReady() {
     if (state.leadSent) return;
@@ -321,7 +322,7 @@
 
       if (r.ok && data && data.ok) {
         state.leadSent = true;
-        localStorage.setItem(sentKey, "1");
+        sessionStorage.setItem(sentKey, "1");
         addMessage("assistant", "Perfect — got it. I just emailed your details to our team. ✅");
         return;
       }
