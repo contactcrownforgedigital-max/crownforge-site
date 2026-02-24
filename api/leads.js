@@ -73,14 +73,21 @@ if (!email) {
       transcript || "(none)",
     ].join("\n");
 
-    const result = await resend.emails.send({
+    const { data, error } = await resend.emails.send({
       from,
       to,
       subject,
       text,
     });
 
-    return res.status(200).json({ ok: true, id: result.data?.id || null });
+    if (error) {
+      console.error("Resend error:", error);
+      return res
+        .status(500)
+        .json({ ok: false, error: error.message || String(error) });
+    }
+
+    return res.status(200).json({ ok: true, id: data?.id || null });
   } catch (err) {
     return res.status(500).json({ ok: false, error: err?.message || "Server error" });
   }
