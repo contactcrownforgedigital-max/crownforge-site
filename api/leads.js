@@ -21,8 +21,8 @@ module.exports = async (req, res) => {
 
     // NOTE: In Resend testing mode you can only send to your Resend account email.
     // Once you verify a domain in Resend, set LEADS_TO_EMAIL to your preferred inbox (e.g. contactcrownforgedigital@gmail.com).
-    const to = process.env.LEADS_TO_EMAIL || "hayden.deloach@yahoo.com";
-    const from = "onboarding@resend.dev"; // works immediately. Later change to leads@crownforgedigital.com after domain verification.
+    const to = process.env.LEADS_TO_EMAIL || "contactcrownforgedigital@gmail.com";
+    const from = "CrownForge Leads <no-reply@crownforgedigital.com>";
 
     const email = safeTrim(body.email);
     const phone = safeTrim(body.phone);
@@ -78,6 +78,7 @@ if (!email) {
     const { data, error } = await resend.emails.send({
       from,
       to,
+      replyTo: email || undefined,
       subject,
       text,
     });
