@@ -8,9 +8,9 @@
   <meta name="description" content="CrownForge Digital builds fast, premium websites and maintenance plans for small businesses in Hampton, SC and surrounding communities." />
 
   <!-- Favicons -->
-<link rel="icon" type="image/svg+xml" href="favicon.svg?v=3">
-<link rel="apple-touch-icon" href="logo.png?v=3">
-<meta name="theme-color" content="#070b0a">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg?v=3" />
+  <link rel="apple-touch-icon" href="logo.png?v=3" />
+  <meta name="theme-color" content="#070b0a" />
   <!-- Open Graph -->
   <meta property="og:title" content="CrownForge Digital | Websites, Branding & Maintenance" />
   <meta property="og:description" content="Premium websites for small businesses — built fast. Based in Hampton, SC." />
@@ -19,9 +19,6 @@
   <meta property="og:image" content="https://www.crownforgedigital.com/logo.png" />
 
   <link rel="stylesheet" href="styles.css" />
-  <style>
-    .emailLink { color: rgba(255,255,255,.92); text-decoration: underline; text-underline-offset: 3px; }
-  </style>
 </head>
 
 <body>
@@ -380,21 +377,50 @@
       return;
     }
 
-    if (!state.email && looksLikeEmail(t)) state.email = extractEmail(t);
-    if (!state.phone && looksLikePhone(t)) state.phone = extractPhone(t);
+    // Robust parsing: allow a single message to include description + business type + email
+    let working = t;
 
-    if (!state.description && !looksLikeEmail(t) && !looksLikePhone(t)) {
-      state.description = t;
-      addMessage("assistant", "Got it.");
-      nextQuestion();
-      return;
+    // Extract labeled business type if present (e.g., "Business type: auto shop")
+    if (!state.businessType) {
+      const m = working.match(/business\s*type\s*[:\-]\s*([^\n\.]+)/i);
+      if (m && m[1]) {
+        state.businessType = m[1].trim();
+        working = working.replace(m[0], " ");
+        addMessage("assistant", `Got it — ${state.businessType}.`);
+      }
     }
 
+    // Extract email even if the message contains other text
+    if (!state.email) {
+      const em = extractEmail(working);
+      if (em) {
+        state.email = em;
+        working = working.replace(em, " ");
+      }
+    }
+
+    // Extract phone even if the message contains other text
+    if (!state.phone) {
+      const ph = extractPhone(working);
+      if (ph) state.phone = ph;
+    }
+
+    // Remove any leftover labeled fragments
+    working = working.replace(/email\s*[:\-]\s*[^\n]+/ig, " ");
+    working = working.replace(/business\s*type\s*[:\-]\s*[^\n]+/ig, " ");
+
+    const cleaned = working.replace(/\s+/g, " ").trim();
+
+    // If we still need a description, use the remaining cleaned text
+    if (!state.description && cleaned) {
+      state.description = cleaned;
+      addMessage("assistant", "Got it.");
+    }
+
+    // If business type still missing and the message is short, treat it as business type
     if (!state.businessType && t.length <= 60 && !looksLikeEmail(t) && !looksLikePhone(t)) {
       state.businessType = t;
       addMessage("assistant", `Got it — ${state.businessType}.`);
-      nextQuestion();
-      return;
     }
 
     if (state.pages.length === 0 && /(home|services|contact|about|gallery|portfolio|menu|pricing|reviews)/i.test(t)) {
