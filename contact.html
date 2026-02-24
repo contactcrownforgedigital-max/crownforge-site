@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CrownForge Digital — Contact</title>
+  <meta name="description" content="Request a quote from CrownForge Digital." />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="apple-touch-icon" href="logo.png">
+  <meta name="theme-color" content="#070b0a">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar" data-sticky>
+    <div class="container topbar__inner">
+      <a class="brand" href="index.html" aria-label="CrownForge Digital Home">
+        <span class="brand__mark" aria-hidden="true"><img src="logo.png" alt=""></span>
+        <span class="brand__text"><span class="brand__name">CrownForge</span><span class="brand__sub">Digital</span></span>
+      </a>
+
+      <nav class="nav" aria-label="Primary Navigation">
+        <button class="nav__toggle" data-nav-toggle aria-label="Open menu"><span></span><span></span><span></span></button>
+        <div class="nav__links" data-nav-links>
+          <a class="nav__link" href="index.html">Home</a>
+          <a class="nav__link" href="portfolio.html">Portfolio</a>
+          <a class="nav__link is-active" href="contact.html">Contact</a>
+          <a class="nav__cta btn btn--gold" href="contact.html">Request</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="container split">
+      <div class="reveal">
+        <p class="kicker">Contact</p>
+        <h1 class="h1">Request a quote</h1>
+        <p class="lead">Fill this out and it emails a summary instantly. Or use the concierge chat on the homepage.</p>
+
+        <div class="card" style="margin-top:14px;">
+          <p class="muted" style="margin:0;">Direct email fallback:</p>
+          <p style="margin:6px 0 0;">contactcrownforgedigital@gmail.com</p>
+        </div>
+      </div>
+
+      <div class="card reveal" style="--delay:120ms">
+        <div class="card__head">
+          <h2 class="h3">Project details</h2>
+          <p class="muted">Required: description, business type, email.</p>
+        </div>
+
+        <form id="contactLeadForm">
+          <input class="input" name="name" placeholder="Name (optional)" style="margin-bottom:10px;" />
+          <input class="input" name="email" placeholder="Email (required)" type="email" required style="margin-bottom:10px;" />
+          <input class="input" name="phone" placeholder="Phone (optional)" inputmode="tel" style="margin-bottom:10px;" />
+
+          <input class="input" name="businessType" placeholder="Business type (required) — ex: Auto shop" required style="margin-bottom:10px;" />
+
+          <textarea class="input textarea" name="description" placeholder="Describe what you need (required) — pages, features, deadline, etc." required></textarea>
+
+          <button class="btn btn--gold btn--full" type="submit" style="margin-top:12px;">SEND</button>
+          <p class="fineprint" id="contactStatus"></p>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__bottom">
+      <span class="muted">© <span id="year"></span> CrownForge Digital</span>
+      <a class="btn btn--ghost" href="portfolio.html">View portfolio</a>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    // Posts to your existing /api/leads (same schema your backend validates)
+    const f = document.getElementById("contactLeadForm");
+    const s = document.getElementById("contactStatus");
+
+    f?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      s.textContent = "Sending…";
+
+      const data = Object.fromEntries(new FormData(f).entries());
+      const payload = {
+        name: data.name || "",
+        email: data.email || "",
+        phone: data.phone || "",
+        businessType: data.businessType || "",
+        description: data.description || "",
+        location: "Hampton, SC"
+      };
+
+      try {
+        const r = await fetch("/api/leads", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+        const j = await r.json().catch(() => ({}));
+        if (r.ok && j && j.ok) {
+          s.textContent = "Sent. I’ll reach out shortly. ✅";
+          f.reset();
+        } else {
+          s.textContent = "Couldn’t send — please try again or email us directly.";
+        }
+      } catch {
+        s.textContent = "Couldn’t send — please try again or email us directly.";
+      }
+    });
+  </script>
+</body>
+</html>

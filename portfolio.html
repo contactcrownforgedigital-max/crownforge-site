@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CrownForge Digital — Portfolio</title>
+  <meta name="description" content="Portfolio of CrownForge Digital projects and previews." />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="apple-touch-icon" href="logo.png">
+  <meta name="theme-color" content="#070b0a">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar" data-sticky>
+    <div class="container topbar__inner">
+      <a class="brand" href="index.html" aria-label="CrownForge Digital Home">
+        <span class="brand__mark" aria-hidden="true"><img src="logo.png" alt=""></span>
+        <span class="brand__text"><span class="brand__name">CrownForge</span><span class="brand__sub">Digital</span></span>
+      </a>
+
+      <nav class="nav" aria-label="Primary Navigation">
+        <button class="nav__toggle" data-nav-toggle aria-label="Open menu"><span></span><span></span><span></span></button>
+        <div class="nav__links" data-nav-links>
+          <a class="nav__link" href="index.html">Home</a>
+          <a class="nav__link is-active" href="portfolio.html">Portfolio</a>
+          <a class="nav__link" href="contact.html">Contact</a>
+          <a class="nav__cta btn btn--gold" href="contact.html">Request</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="container">
+      <div class="reveal">
+        <p class="kicker">Selected work</p>
+        <h1 class="h1">Portfolio & Previews</h1>
+        <p class="lead">Live sites + polished previews (clearly labeled) so you can see the style and conversion structure.</p>
+      </div>
+
+      <div class="split" style="margin-top:18px;">
+        <div class="card reveal">
+          <div class="card__head">
+            <h2 class="h3">Macon Brunson Photography</h2>
+            <p class="muted">Portfolio grid + lightbox flow + premium booking path.</p>
+          </div>
+          <a class="btn btn--gold btn--full" href="https://macon-brunson-photography.vercel.app/" target="_blank" rel="noreferrer">View Preview</a>
+          <p class="fineprint">Label: Preview</p>
+        </div>
+
+        <div class="card reveal" style="--delay:120ms">
+          <div class="card__head">
+            <h2 class="h3">Auto Shop — Conversion Demo</h2>
+            <p class="muted">Call/text/directions + quote request, built for local services.</p>
+          </div>
+          <a class="btn btn--ghost btn--full" href="#" onclick="return false;">Add your demo link</a>
+          <p class="fineprint">Label: Demo</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__bottom">
+      <span class="muted">© <span id="year"></span> CrownForge Digital</span>
+      <a class="btn btn--ghost" href="contact.html">Request a quote</a>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
